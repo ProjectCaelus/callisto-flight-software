@@ -34,6 +34,7 @@ void SensorTask::initialize() {
     #ifdef DESKTOP
         pressure_driver = new PseudoPressureDriver(pressure_pins);
         thermo_driver = new PseudoThermoDriver(thermo_pins);
+        load_cell_driver = new PseudoLoadCellDriver(load_cell_pins);
     #else
         pressure_driver = new PressureDriver(pressure_pins);
         thermo_driver = new ThermoDriver(thermo_pins);
@@ -47,6 +48,7 @@ void SensorTask::read() {
     print("Sensor: Reading");
     pressure_driver->read();
     thermo_driver->read();
+    load_cell_driver->read();
 
     // Update pressure sensor values
     for(unsigned int i = 0; i < pressure_pins.size(); i++){
@@ -58,7 +60,7 @@ void SensorTask::read() {
 
         
         float value = global_config.sensors.list[type][loc].slope * pressure_driver->getPressureValue(pin) - global_config.sensors.list[type][loc].bias;
-        print(type + " " + loc + ": " + Util::to_string((double) value));
+        // print(type + " " + loc + ": " + Util::to_string((double) value));
         global_registry.sensors[type][loc].measured_value = value;
     }
 
@@ -74,6 +76,18 @@ void SensorTask::read() {
         global_registry.sensors[type][loc].measured_value = value;
     }
 
+    // Update load cell values
+    for(unsigned int i = 0; i < load_cell_pins.size(); i++){
+        int pin = load_cell_pins[i][0];  
+
+        pair<string, string> sensor_info = pin_sensor_mappings[pin];
+        string type = sensor_info.first;
+        // specific sensor, pressure sensor 1, pressure sensor 2, etc.
+        string loc = sensor_info.second;
+        float value = load_cell_driver->getForceValue(pin);
+        // print(type + " " + loc + ": " + Util::to_string((double) value));
+        global_registry.sensors[type][loc].measured_value = value;
+    }
 }
 
 void SensorTask::actuate() {}

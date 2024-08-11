@@ -27,7 +27,8 @@ private:
 
     unordered_map<string, string> sensor_type_inverse_map {
         {"0", "thermocouple"},
-        {"1", "pressure"}
+        {"1", "pressure"},
+        {"2", "load_cell"}
     };
     
     unordered_map<string, string> sensor_location_inverse_map {
@@ -35,11 +36,10 @@ private:
         {"2", "PT-2"},
         {"3", "PT-3"},
         {"4", "PT-4"},
-        {"5", "PT-5"},
-        {"P", "PT-P"},
-        {"7", "PT-7"},
-        {"8", "PT-8"},
-        {"9", "Thermo-1"}
+        {"5", "TC-1"},
+        {"6", "LC-1"},
+        {"7", "LC-2"},
+        {"8", "LC-3"}
     };
 
     std::unordered_map<std::string, std::string> valve_type_inverse_map {
@@ -47,12 +47,17 @@ private:
     };
     
     std::unordered_map<std::string, std::string> valve_location_inverse_map {
-        {"1", "ethanol_pressurization"},
-        {"2", "ethanol_vent"},
-        {"3", "ethanol_mpv"},
+        {"1", "ethanol_ground_vent"},
+        {"2", "nitrous_vent"},
+        {"3", "ethanol_pressurization"},
         {"4", "nitrous_pressurization"},
-        {"5", "nitrous_fill"},
-        {"6", "nitrous_mpv"}
+        {"5", "ethanol_flight_vent"},
+        {"6", "nitrous_flight_vent"},
+        {"7", "ethanol_drain"},
+        {"8", "nitrous_drain"},
+        {"9", "ethanol_mpv"},
+        {"A", "nitrous_mpv"},
+        {"B", "nitrous_isolation"}
     };
 
     void ingest(const Log& log);

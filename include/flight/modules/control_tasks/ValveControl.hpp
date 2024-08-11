@@ -19,12 +19,17 @@ class ValveControl : public Control {
         };
         
         std::unordered_map<std::string, std::string> valve_location_map {
-            {"ethanol_pressurization", "1"},
-            {"ethanol_vent", "2"},
-            {"ethanol_mpv", "3"},
+            {"ethanol_ground_vent", "1"},
+            {"nitrous_vent", "2"},
+            {"ethanol_pressurization", "3"},
             {"nitrous_pressurization", "4"},
-            {"nitrous_fill", "5"},
-            {"nitrous_mpv", "6"},
+            {"ethanol_flight_vent", "5"},
+            {"nitrous_flight_vent", "6"},
+            {"ethanol_drain", "7"},
+            {"nitrous_drain", "8"},
+            {"ethanol_mpv", "9"},
+            {"nitrous_mpv", "A"},
+            {"nitrous_isolation", "B"}
         };
 
         // all time is calculated in milliseconds

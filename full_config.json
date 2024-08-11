@@ -13,7 +13,7 @@
   "sensors": {
       "list": {
           "thermocouple": {
-            "Thermo-1": {
+            "TC-1": {
               "kalman_args": {
                 "process_variance": 0.01,
                 "measurement_variance": 0.02,
@@ -152,8 +152,10 @@
               "pressure_pin": 18,
               "bias": 24.0,
               "slope": 1.0
-            },
-            "PT-5": {
+            }
+          },
+          "load_cell": {
+            "LC-1": {
               "kalman_args": {
                 "process_variance": 0.01,
                 "measurement_variance": 0.02,
@@ -177,11 +179,11 @@
                   "warn": [50, 550]
                 }
               },
-              "pressure_pin": 14,
-              "bias": 15.0,
-              "slope": 1.0    
+              "load_cell_pins": [0, 1, 2, 3],
+              "bias": 1.0,
+              "slope": 1.0
             },
-            "PT-P": {
+            "LC-2": {
               "kalman_args": {
                 "process_variance": 0.01,
                 "measurement_variance": 0.02,
@@ -205,11 +207,11 @@
                   "warn": [50, 550]
                 }
               },
-              "pressure_pin": 22,
-              "bias": 15.0,
-              "slope": 1.0    
+              "load_cell_pins": [4, 5, 6, 7],
+              "bias": 1.0,
+              "slope": 1.0
             },
-            "PT-7": {
+            "LC-3": {
               "kalman_args": {
                 "process_variance": 0.01,
                 "measurement_variance": 0.02,
@@ -233,37 +235,9 @@
                   "warn": [50, 550]
                 }
               },
-              "pressure_pin": 16,
-              "bias": 15.0,
-              "slope": 1.0    
-            },
-            "PT-8": {
-              "kalman_args": {
-                "process_variance": 0.01,
-                "measurement_variance": 0.02,
-                "kalman_value": 1000
-              },
-              "boundaries": {
-                "waiting": {
-                  "safe": [100, 500],
-                  "warn": [50, 550]
-                },
-                "pressurization": {
-                  "safe": [100, 500],
-                  "warn": [50, 550]
-                },
-                "autosequence": {
-                  "safe": [100, 500],
-                  "warn": [50, 550]
-                },
-                "postburn": {
-                  "safe": [100, 500],
-                  "warn": [50, 550]
-                }
-              },
-              "pressure_pin": 17,
-              "bias": 15.0,
-              "slope": 1.0    
+              "load_cell_pins": [8, 9, 10, 11],
+              "bias": 1.0,
+              "slope": 1.0
             }
           }
       },
@@ -274,35 +248,60 @@
   "valves": {
     "list": {
       "solenoid": {
-        "ethanol_pressurization": {
+        "ethanol_ground_vent": {
           "label": "NCSV-1",
           "pin": 4,
           "natural": "CLOSED"
         },
-        "ethanol_vent": {
+        "nitrous_vent": {
           "label": "NCSV-2",
-          "pin": 39,
+          "pin": 5,
           "natural": "CLOSED"
         },
-        "ethanol_mpv": {
+        "ethanol_pressurization": {
           "label": "NCSV-3",
           "pin": 6,
           "natural": "CLOSED"
         },
         "nitrous_pressurization": {
-            "label": "NCSV-4",
-            "pin": 5,
-            "natural": "CLOSED"
+          "label": "NCSV-4",
+          "pin": 7,
+          "natural": "CLOSED"
         },
-        "nitrous_fill": {
-            "label": "NOSV-1",
-            "pin": 11,
-            "natural": "OPEN"
+        "ethanol_flight_vent": {
+          "label": "NCSV-5",
+          "pin": 8,
+          "natural": "CLOSED"
         },
-        "nitrous_mpv": {
-            "label": "NCSV-5",
+        "nitrous_flight_vent": {
+            "label": "NCSV-6",
             "pin": 9,
             "natural": "CLOSED"
+        },
+        "ethanol_drain": {
+            "label": "NCSV-7",
+            "pin": 10,
+            "natural": "OPEN"
+        },
+        "nitrous_drain": {
+            "label": "NCSV-8",
+            "pin": 11,
+            "natural": "CLOSED"
+        },
+        "ethanol_mpv": {
+          "label": "NCSV-9",
+          "pin": 12,
+          "natural": "CLOSED"
+        },
+        "nitrous_mpv": {
+          "label": "NCSV-A",
+          "pin": 13,
+          "natural": "CLOSED"
+        },
+        "nitrous_isolation": {
+          "label": "NCSV-B",
+          "pin": 14,
+          "natural": "CLOSED"
         }
       }
     },
@@ -316,7 +315,7 @@
     "send_interval": 2
   },
   "timer": {
-    "delay": 0.001
+    "delay": 0.1
   },
   "pressure_control": {
     "active_stages": ["pressurization", "autosequence", "postburn"]
@@ -324,7 +323,7 @@
   "arduino_type": "real",
   "task_config": {
     "tasks": ["sensor", "valve"],
-    "control_tasks": ["sensor", "valve", "stage"]
+    "control_tasks": ["sensor", "valve"]
   },
   "UI": {
       "data_cutoff": 30,

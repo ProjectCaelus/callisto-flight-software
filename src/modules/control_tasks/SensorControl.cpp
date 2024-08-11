@@ -116,6 +116,6 @@ void SensorControl::send_sensor_data() {
         }
     }
     data = data.substr(0, data.length()-1);
-    global_flag.send_packet("DAT", data);
+    global_flag.send_packet("SEN", data);
     printCritical("Sensor data batch sent: " + data + ".");
 }
